@@ -10,6 +10,8 @@ version: 2
 
 before:
   hooks:
+    # Formatting the code is a good idea
+    - go fmt ./...
     # You may remove this if you don't use go modules.
     - go mod tidy
     # you may remove this if you don't need go generate
@@ -22,11 +24,9 @@ builds:
     goos:
       - linux
       - windows
-      - darwin
     goarch:
       - arm64
       - amd64
-      - "386"
 
 archives:
   - formats: [tar.gz]
@@ -35,7 +35,6 @@ archives:
       {{ .ProjectName }}_
       {{- title .Os }}_
       {{- if eq .Arch "amd64" }}x86_64
-      {{- else if eq .Arch "386" }}i386
       {{- else }}{{ .Arch }}{{ end }}
       {{- if .Arm }}v{{ .Arm }}{{ end }}
     # use zip for windows archives
