@@ -7,6 +7,7 @@
 # vim: set ts=2 sw=2 tw=0 fo=cnqoj
 
 version: 2
+project_name: practice-prod
 
 before:
   hooks:
@@ -17,7 +18,11 @@ before:
     # you may remove this if you don't need go generate
     - go generate ./...
 
+metadata:
+  mod_timestamp: "{{ .CommitTimestamp }}"
+
 builds:
+  - id: practice-prod
   - main: ./...
     env:
       - CGO_ENABLED=0
