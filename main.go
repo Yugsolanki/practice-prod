@@ -2,11 +2,14 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
-	fmt.Println("Hello World")
+	app_name := os.Getenv("APP_NAME")
+	fmt.Println("Starting application:", app_name)
 
 	// Basic Web Server serving html and images from /images folder
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -15,6 +18,7 @@ func main() {
 			return
 		}
 		http.ServeFile(w, r, "./index.htm")
+		log.Printf("Served index.htm to %s by %s\n", r.RemoteAddr, app_name)
 	})
 
 	fs := http.FileServer(http.Dir("images"))
